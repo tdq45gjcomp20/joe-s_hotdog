@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Joe's Hotdogs</title>
+  </head>
+
+  <body>
+    <h1>Welcome to Joe's Hotdogs</h1>
+    <h2>Your Order</h2>
+    <script src="path/to/accounting.js"></script>
+    <script language="javascript">
+      var HOTDOGPRICE = 3.25;
+      var FRIESPRICE = 2.00;
+      var SODAPRICE = 1.50;
+      var MIN = 20.00;
+      var TAX_RATE = 0.0625;
+      var total = 0;
+      var tax;
+
+      function formatMoney(num) {
+        return "$" + (Math.round((num * 1000)/10)/100).toFixed(2);
+      }
+
+      function getInput(itemName) {
+        var input = parseInt(prompt("How many " + itemName +"?"));
+        while (input < 0) {
+          alert("Negative input not allowed");
+          input = parseInt(prompt("How many " + itemName +"?"));
+        }
+        return input;
+      }
+
+      function printItem(itemName, num, price) {
+        total += num * price;
+        document.write("<p># " + itemName + ": " + formatMoney(num));
+        document.write(" at " + formatMoney(price) + " is " + formatMoney(num * price));
+        document.write("</p><br/>");
+      }
+
+      var numHotdogs = getInput("hotdogs");
+      var numFries = getInput("fries");
+      var numSodas = getInput("sodas");
+      printItem("Hotdogs", numHotdogs, HOTDOGPRICE);
+      printItem("Fries", numFries, FRIESPRICE);
+      printItem("Sodas", numSodas, SODAPRICE);
+      if (total >= MIN) {
+        document.write("<p>You qualified for our 10% discount.</p><br/>");
+        total *= 0.9;
+      }
+      tax = total * TAX_RATE;
+      document.write("<p>Subtotal: " + formatMoney(total) + "</p><br/>");
+      document.write("<p>Meals Tax: " + formatMoney(tax) + "</p><br/>");
+      document.write("<p>Total: " + formatMoney(total + tax) + "</p><br/>");
+    </script>
+  </body>
+</html>
